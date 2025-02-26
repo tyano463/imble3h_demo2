@@ -1,4 +1,4 @@
-# IMBLE3h インターフェーステストモジュール
+# IMBLE3h インターフェーステストモジュール2
 :toc:
 :toc-levels: 3
 :toc-title: 目次
@@ -20,7 +20,11 @@ link:https://www.interplan.co.jp/solution/wireless/imble/imble3_family.php[IMBLE
 
 ### 外観
 
-image:images/imble3h_app.png[width="300"]
+image:images/demo2.png[width="300"]
+
+図のように接続してください +
+PICは図では浮いていますが、凹みのある方を図の上側にして +
+きっちり指してください
 
 <<<
 
@@ -55,8 +59,8 @@ image:images/schematic.svg[width="700"]
 
 ### 事前準備
 
-- IMBLE3h-ADPとUSBインターフェイスボードを接続します
-- USBインターフェイスボードとPCをUSBケーブルで接続します
+- IMBLE3h-ADPとUSBインターフェイスボード2を接続します
+- USBインターフェイスボード2とPCをUSBケーブルで接続します
 - テラタームなどのターミナルエミュレータで接続します(*1)
 - `RPRM` + Enterを実行します
 デバイス名が `IMBLE3h-0000100` であることと、 `ENRX` が表示されていることを確認してください
