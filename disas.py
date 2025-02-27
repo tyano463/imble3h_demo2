@@ -16,14 +16,14 @@ def prepare():
     global INSTRUCTION_SIZE
     global program_size
 
-    init_opcode = init_opcode12f683
-    # init_opcode = init_opcode18f26q84
+    # init_opcode = init_opcode12f683
+    init_opcode = init_opcode18f26q84
 
-    INSTRUCTION_SIZE = 14 #12f683
-    # INSTRUCTION_SIZE = 16
+    # INSTRUCTION_SIZE = 14     # 12f683
+    INSTRUCTION_SIZE = 16       # 18F26Q84
 
-    program_size = 16 * KB  #12f683
-    #   program_size = 128 * KB
+    # program_size = 16 * KB    # 12f683
+    program_size = 128 * KB   # 18F26Q84
 
 
 def usage():

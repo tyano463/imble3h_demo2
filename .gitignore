@@ -1,0 +1,17 @@
+/*.pdf
+/*.log
+/demo2.cmf
+/demo2.elf
+/demo2.hex
+/demo2.hxl
+/demo2.o
+/demo2.s
+/demo2.sdb
+/demo2.sym
+/main.d
+/main.p1
+/sample
+/startup.lst
+/startup.o
+/startup.rlf
+/startup.s
