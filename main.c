@@ -165,6 +165,7 @@ char button, temp, temp2, cnt, vc;
 
 void main(void)
 {
+    __asm("MOVLB 4");
     TRISA = 0x3;   // RA0, RA1 as input
     ANSELA = 0x01; // RA0 -> analog
     ADCON1 = 0;
@@ -177,6 +178,7 @@ void main(void)
     ADRPT = 0;
     ADACT = 0;
     ADCON0 = 0x94;
+    WPUAbits.WPUA1 = 1;
 
     TRISC = 0x80; // RC7 as input
     ANSELC = 0x00;
@@ -224,6 +226,7 @@ void main(void)
 
 static void UART_write(uint8_t c)
 {
+    __asm("MOVLB 2");
     while (U1FIFObits.TXBF)
         ;
     U1TXB = c;
@@ -231,16 +234,19 @@ static void UART_write(uint8_t c)
 
 static void led_on(void)
 {
+    __asm("MOVLB 4");
     LATA |= 4;
 }
 
 static void led_off(void)
 {
+    __asm("MOVLB 4");
     LATA &= ~0x04;
 }
 
 static void UART_init(void)
 {
+    __asm("MOVLB 2");
     U1CON0 = 0x30;
     U1CON1 = 0;
     U1CON2 = 0x80;
@@ -252,6 +258,7 @@ static void UART_init(void)
 
     U1ERRIR = 0;
     U1CON1bits.ON = 1;
+    __asm("MOVLB 4");
     PIR4bits.U1RXIF = 0;
     PIE4bits.U1RXIE = 1;
 }
@@ -259,6 +266,7 @@ static void UART_init(void)
 static char get_button_state(void)
 {
     cnt = 0;
+    __asm("MOVLB 3");
     T2PR = BUTTON_TIMER;
     TMR2 = 0;
     temp = PORTAbits.RA1;
@@ -283,6 +291,7 @@ static char get_button_state(void)
         temp = 1;
         led_off();
     }
+    __asm("MOVLB 3");
     T2CONbits.ON = 0;
     while (!PORTAbits.RA1)
         ;
@@ -292,6 +301,7 @@ static char get_button_state(void)
 
 static void read_analog()
 {
+    __asm("MOVLB 3");
     ADCON0bits.GO = 1;
     while (ADCON0bits.GO)
         ;

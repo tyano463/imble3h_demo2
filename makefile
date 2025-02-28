@@ -1,5 +1,5 @@
 CC 		:= 	/opt/microchip/xc8/v3.00/bin/xc8-cc
-CFLAGS 	:= -mcpu=18F26Q84
+CFLAGS 	:= -mcpu=18F26Q84 -O2
 LDFLAGS	:= -mcpu=18F26Q84
 OBJS	:= $(patsubst %.c, %.p1, $(wildcard *.c))
 EXE		:= demo2.hex
