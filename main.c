@@ -144,6 +144,7 @@
 #include <xc.h>
 
 #define BUTTON_TIMER 0x60
+#define _XTAL_FREQ 64000000
 
 #define ENA_INT()             \
     {                         \
@@ -266,13 +267,16 @@ static void UART_init(void)
 static char get_button_state(void)
 {
     cnt = 0;
-    __asm("MOVLB 3");
+    T2CON = 0x20;
+    T2CLKCON = 2;
+    T2HLT = 0;
     T2PR = BUTTON_TIMER;
-    TMR2 = 0;
     temp = PORTAbits.RA1;
+
+    T2TMR = 0;
     T2CONbits.ON = 1;
 
-    while (TMR2 < BUTTON_TIMER)
+    while (T2TMR < BUTTON_TIMER)
     {
         temp2 = PORTAbits.RA1;
         if (!temp2)
@@ -280,6 +284,7 @@ static char get_button_state(void)
             cnt++;
         }
     }
+    T2CONbits.ON = 0;
 
     if (cnt > 10)
     {
@@ -291,23 +296,29 @@ static char get_button_state(void)
         temp = 1;
         led_off();
     }
-    __asm("MOVLB 3");
-    T2CONbits.ON = 0;
+
     while (!PORTAbits.RA1)
         ;
 
     return temp;
 }
 
+
 static void read_analog()
 {
-    __asm("MOVLB 3");
+    ADRESH = 0;
+    ADRESL = 0;
+    ADCON0bits.GO = 0;
+    ADCON0bits.ON = 1;
+    __delay_ms(1);
+    
     ADCON0bits.GO = 1;
     while (ADCON0bits.GO)
         ;
 
     vh = ADRESH;
     vl = ADRESL;
+    ADCON0bits.ON = 0;
 }
 
 static char b2c(uint8_t b, int high)
